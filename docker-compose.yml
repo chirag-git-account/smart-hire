@@ -1,0 +1,59 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: smarthire-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: smarthire_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: smarthire_user
+      MYSQL_PASSWORD: smarthire_password
+    ports:
+      - "${MYSQL_PORT:-3307}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./smart-hire-backend
+      dockerfile: Dockerfile
+    container_name: smarthire-backend
+    restart: always
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/smarthire_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: smarthire_user
+      SPRING_DATASOURCE_PASSWORD: smarthire_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: 9a4f2c8d7e1b3a5c7e9f2a4b6c8d1e3f5a7c9b2d4e6f8a1c3e5b7d9f2a4b6c8d
+      JWT_EXPIRATION_MS: 86400000
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-1.5-flash}
+    volumes:
+      - backend_uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./smart-hire-frontend
+      dockerfile: Dockerfile
+    container_name: smarthire-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  mysql_data:
+  backend_uploads:

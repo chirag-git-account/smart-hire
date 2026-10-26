@@ -1,0 +1,44 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: smart-hire-backend
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/smarthiredb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:9a4f2c8d7e1b3a5c7e9f2a4b6c8d1e3f5a7c9b2d4e6f8a1c3e5b7d9f2a4b6c8d}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  upload:
+    dir: ${UPLOAD_DIR:./uploads}
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      model: ${OPENAI_MODEL:gpt-4o-mini}
+    gemini:
+      api-key: ${GEMINI_API_KEY:}
+      model: ${GEMINI_MODEL:gemini-1.5-flash}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    operationsSorter: method
