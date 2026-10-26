@@ -98,16 +98,18 @@
 
 ---
 
-## 🔑 Pre-Seeded Demo Accounts
+## 🔑 Demo Application Roles
 
-The project includes an automatic database seeder (`DataInitializer.java`) with top Indian and global tech firms (Google, Microsoft, Amazon, Razorpay, Flipkart, Swiggy, Zomato, CRED, Uber, PhonePe, Zerodha):
+The project includes an automatic demo data seeder (`DataInitializer.java`) providing test roles for evaluating different dashboards:
 
-| Role | Email | Password | Access Highlights |
-|---|---|---|---|
-| **System Admin** | `admin@smarthire.ai` | `password123` | Global analytics, user management, company auditing, job lifecycle. |
-| **Job Seeker** | `candidate@smarthire.ai` | `password123` | Pre-configured profile, job browsing, 1-click apply, application tracking. |
-| **Recruiter (Razorpay)** | `recruiter@razorpay.com` | `password123` | Ranked candidates, AI scoring breakdown, interview kit generator. |
-| **Recruiter (Google)** | `recruiter@google.com` | `password123` | Staff ML/AI role management. |
+| Role | Demo Login Email | Available Capabilities |
+|---|---|---|
+| **System Admin** | `admin@smarthire.ai` | Global analytics, user management, company auditing, job lifecycle. |
+| **Job Seeker** | `candidate@smarthire.ai` | Pre-configured profile, job browsing, 1-click apply, application tracking. |
+| **Recruiter (Razorpay)** | `recruiter@razorpay.com` | Ranked candidates, AI scoring breakdown, interview kit generator. |
+| **Recruiter (Google)** | `recruiter@google.com` | Staff ML/AI role management. |
+
+> *Note: These are mock demo accounts seeded for UI evaluation. You can also register fresh accounts directly from the registration screen.*
 
 ---
 
@@ -124,9 +126,10 @@ cd smart-hire
 docker-compose up --build
 ```
 
-* **Frontend:** [http://localhost:5173](http://localhost:5173)
-* **Backend API:** [http://localhost:8080/api](http://localhost:8080/api)
-* **Swagger UI:** [http://localhost:8080/api/swagger-ui/index.html](http://localhost:8080/api/swagger-ui/index.html)
+> 📌 **Local Endpoints (Active after starting the containers above on your computer):**
+> * **Frontend Web Application:** `http://localhost:5173`
+> * **Backend REST API:** `http://localhost:8080/api`
+> * **Swagger Interactive API Docs:** `http://localhost:8080/api/swagger-ui/index.html`
 
 ---
 
