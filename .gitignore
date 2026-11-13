@@ -28,6 +28,9 @@ uploads/
 **/uploads/
 smart-hire-backend/uploads/
 *.pdf
+*.docx
+*interview*
+*Interview*
 
 # Temporary files & logs
 logs/
